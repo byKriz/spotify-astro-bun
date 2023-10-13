@@ -1,0 +1,31 @@
+---
+import type { Playlist } from "@/lib/data";
+
+interface Props {
+  playList: Playlist;
+}
+
+const { playList } = Astro.props;
+const { id, albumId, artists, color, cover, title } = playList;
+
+const artistsString = artists.join(", ");
+---
+
+<a
+  href={`/playlist/${id}`}
+  class="playlist-item flex relative p-2 overflow-hidden items-center gap-5 rounded-md hover:bg-zinc-800"
+>
+  <picture class="h-12 w-12 flex-none">
+    <img src={cover} alt="" />
+  </picture>
+
+  <div class="flex flex-auto flex-col truncate">
+    <!-- truncate sirve para que si el texto es muy largo, lo cambie por puntos suspensivos -->
+    <h4 class="text-white text-sm">
+        {title}
+    </h4>
+    <span class="text-xs text-gray-400">
+        {artistsString}
+    </span>
+  </div>
+</a>
