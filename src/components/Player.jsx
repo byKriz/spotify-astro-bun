@@ -1,5 +1,6 @@
 import { PauseIcon } from "@/icons/PauseIcon"
 import { PlayIcon } from "@/icons/PlayIcon"
+import { usePlayerStore } from "@/store/playerStore"
 import { useEffect, useRef, useState } from "react"
 
 
@@ -7,9 +8,11 @@ import { useEffect, useRef, useState } from "react"
 
 
 export const Player = () => {
-    const [isPlaying, setIsPlaying] = useState(false);
+    // const [isPlaying, setIsPlaying] = useState(false);
+    const {currentMusic, isPlaying, setIsPlaying, setCurrentMusic} = usePlayerStore(state => state)
     const [currentSong, setCurrentSong] = useState(null);
     const audioRef = useRef()
+    // console.log({isPlaying});
 
     useEffect(() => {
         audioRef.current.src = `/music/1/01.mp3`
