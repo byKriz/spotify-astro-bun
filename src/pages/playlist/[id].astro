@@ -35,10 +35,9 @@ const playListSongs = songs.filter(
         <div>
           <h1
             class="title-clap text-5xl text-white font-bold block"
-            
+            transition:name=`playlist ${playlist?.id} title`
           >
             {playlist?.title}
-            <span transition:name=`playlist ${playlist?.id} title`></span>
           </h1>
         </div>
         <div class="flex flex-1 items-end">
