@@ -1,5 +1,6 @@
 ---
 import type { Playlist } from "@/lib/data";
+import { artistsList } from "@/services/utiles";
 
 interface Props {
   playList: Playlist;
@@ -8,7 +9,7 @@ interface Props {
 const { playList } = Astro.props;
 const { id, albumId, artists, color, cover, title } = playList;
 
-const artistsString = artists.join(", ");
+const artistsString = artistsList(artists)
 ---
 
 <a
