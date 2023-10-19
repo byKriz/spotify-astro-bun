@@ -2,38 +2,39 @@ import { PauseIcon } from "@/icons/PauseIcon"
 import { PlayIcon } from "@/icons/PlayIcon"
 import { usePlayerStore } from "@/store/playerStore"
 import { useEffect, useRef, useState } from "react"
+import { CurrentSong } from "./CurrentSong"
 
 
 
 
 
 export const Player = () => {
-    // const [isPlaying, setIsPlaying] = useState(false);
-    const {currentMusic, isPlaying, setIsPlaying, setCurrentMusic} = usePlayerStore(state => state)
-    const [currentSong, setCurrentSong] = useState(null);
+    const { currentMusic, isPlaying, setIsPlaying, setCurrentMusic } = usePlayerStore(state => state)
     const audioRef = useRef()
-    // console.log({isPlaying});
 
     useEffect(() => {
-        audioRef.current.src = `/music/1/01.mp3`
-    }, [])
+        isPlaying 
+        ? audioRef.current.play() 
+        : audioRef.current.pause()
+    }, [isPlaying])
+
+    useEffect(() => {
+        const {song, playlist, songs} = currentMusic;
+        if (song) {
+            const src =`/music/${playlist?.id}/0${song.id}.mp3`;
+            audioRef.current.src = src;
+            audioRef.current.play();
+        }
+    }, [currentMusic])
 
     const handleClick = () => {
-        if (isPlaying) {
-            audioRef.current.pause()
-        } else {
-            audioRef.current.play()
-            audioRef.current.volume = 0.1
-        }
-
         setIsPlaying(!isPlaying)
-
     }
 
     return (
         <div className="flex flex-row justify-between w-full px-4 z-50">
             <div>
-                Current Song...
+                <CurrentSong currentMusic={currentMusic} />
             </div>
             <div className="grid place-content-center gap-4 flex-1">
                 <div className="flex justify-center">
